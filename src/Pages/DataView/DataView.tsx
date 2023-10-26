@@ -1,5 +1,5 @@
-import React from "react";
+import { ReactElement } from "react";
 
-export const DataView = () => {
+export const DataView = (): ReactElement => {
   return <div>DataView</div>;
 };
