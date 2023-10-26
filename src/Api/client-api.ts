@@ -21,7 +21,9 @@ export const searchCrimeData = async (inputs: string | string[]) => {
         inputs.map(async (input) => {
           try {
             const postcodesData = await getPostCodes(input);
-
+            if (postcodesData.data?.latitude === undefined) {
+              return;
+            }
             const url = `https://data.police.uk/api/crimes-at-location?&lat=${postcodesData.data?.latitude}&lng=${postcodesData.data?.longitude}`;
             const crimeDataResponse = await fetch(url);
 
