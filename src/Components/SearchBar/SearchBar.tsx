@@ -1,6 +1,7 @@
 import { ReactElement, useEffect, useState } from "react";
 import { CrimeData } from "../../types";
 import { searchCrimeData } from "../../Api/client-api";
+import { DataView } from "../../Pages/DataView/DataView";
 
 export const SearchBar = (): ReactElement => {
   const [search, setSearch] = useState<string>("");
@@ -92,6 +93,9 @@ export const SearchBar = (): ReactElement => {
           placeholder="enter postcode"
         />
       </form>
+      <div className="mt-5 mb-5">
+        <DataView crimeData={crimeData} postCode={search} />
+      </div>
     </div>
   );
 };
