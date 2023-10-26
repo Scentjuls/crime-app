@@ -2,6 +2,7 @@ import { ReactElement, useEffect, useState } from "react";
 import { CrimeData } from "../../types";
 import { searchCrimeData } from "../../Api/client-api";
 import { DataView } from "../../Pages/DataView/DataView";
+import { HistoricSearch } from "../HistoricSearch/HistoricSearch";
 
 export const SearchBar = (): ReactElement => {
   const [search, setSearch] = useState<string>("");
@@ -96,6 +97,7 @@ export const SearchBar = (): ReactElement => {
       <div className="mt-5 mb-5">
         <DataView crimeData={crimeData} postCode={search} />
       </div>
+      <HistoricSearch postcodesArray={postcodesArray} />
     </div>
   );
 };
