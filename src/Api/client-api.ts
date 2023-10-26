@@ -11,3 +11,35 @@ const getPostCodes = async (input: string) => {
     throw new Error(error.message);
   }
 };
+
+export const searchCrimeData = async (inputs: string | string[]) => {
+  const crimeDataArray: any = [];
+
+  if (Array.isArray(inputs)) {
+    try {
+      await Promise.all(
+        inputs.map(async (input) => {
+          try {
+            const postcodesData = await getPostCodes(input);
+
+            const url = `https://data.police.uk/api/crimes-at-location?&lat=${postcodesData.data?.latitude}&lng=${postcodesData.data?.longitude}`;
+            const crimeDataResponse = await fetch(url);
+
+            if (!crimeDataResponse.ok) {
+              throw new Error("Error in crime data fetch");
+            }
+
+            const crimeData = await crimeDataResponse.json();
+            crimeDataArray.push(crimeData);
+          } catch (error: any) {
+            console.error(error.message);
+          }
+        })
+      );
+
+      return crimeDataArray;
+    } catch (error) {
+      console.error("Error fetching crime data:", error);
+    }
+  }
+};
